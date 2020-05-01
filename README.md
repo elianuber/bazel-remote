@@ -29,6 +29,28 @@ unless validation is disabled by configuration. The HTTP server also supports re
 encoded protobuf ActionResult messages to the action cache by using HTTP headers `Accept: application/json`
 for GET requests and `Content-type: application/json` for PUT requests.
 
+### Useful endpoints
+
+**/status** (returns cache status/info)
+```
+$ curl cache:8080/status
+{
+ "CurrSize": 414081715503,
+ "MaxSize": 8589934592000,
+ "NumFiles": 621413,
+ "ServerTime": 1588329927,
+ "GitCommit": "876822643dc8590f2a1d2724641a7078f564978f"
+}
+```
+
+**/cas/empty_blob_sha6** (returns always OK)
+```
+$ curl --head cache:8080/cas/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+HTTP/1.1 200 OK
+Content-Length: 0
+Date: Fri, 01 May 2020 10:42:06 GMT
+```
+
 ### Prometheus Metrics
 
 To query endpoint metrics see [github.com/slok/go-http-metrics's query examples](https://github.com/slok/go-http-metrics#prometheus-query-examples).
